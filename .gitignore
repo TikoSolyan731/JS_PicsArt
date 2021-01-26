@@ -1,0 +1,7 @@
+Classes/
+Objects,*Inheritance/
+Destructuring/
+Promises/
+index.js
+text.txt
+.prettierrc
