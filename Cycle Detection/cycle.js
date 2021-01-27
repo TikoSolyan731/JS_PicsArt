@@ -3,7 +3,7 @@ const Node = (value, next = null) => {
 		value,
 		next,
 	};
-}
+};
 
 let n1 = Node(10);
 let n2 = Node(8);
@@ -17,20 +17,31 @@ n3.next = n4;
 n4.next = n5;
 n5.next = n2; // cycle here!
 
-function findCycle(firstNode) {
-    let slowerPointer = firstNode;
-    let fasterPointer = firstNode;
+function findCycleBeginNode(firstNode) {
+	let slowerPointer = firstNode;
+	let fasterPointer = firstNode;
 
-    while (fasterPointer !== null && fasterPointer.next !== null) {
-        slowerPointer = slowerPointer.next;
-        fasterPointer = fasterPointer.next.next;
+	while (fasterPointer !== null && fasterPointer.next !== null) {
+		slowerPointer = slowerPointer.next;
+		fasterPointer = fasterPointer.next.next;
 
-        if (fasterPointer === slowerPointer)
-            return true;
-    }
+		if (fasterPointer === slowerPointer) {
+			fasterPointer = firstNode;
 
-    return false;
+			while (fasterPointer !== slowerPointer) {
+				fasterPointer = fasterPointer.next;
+				slowerPointer = slowerPointer.next;
+			}
+
+			return fasterPointer;
+		}
+	}
+
+	return null;
 }
 
-let hasCycle = findCycle(n1);
-console.log(hasCycle);
+const cycleNode = findCycleBeginNode(n1);
+if (cycleNode !== null)
+	console.log(cycleNode.value);
+else
+	console.log('no cycles!');
