@@ -1,95 +1,94 @@
 const createLinkedList = () => {
-	let head = null;
-	let size = 0;
+  let head = null;
+  let size = 0;
 
-	return {
-		size: function () {
-			return size;
-		},
+  return {
+    size: function () {
+      return size;
+    },
 
-		isEmpty: function () {
-			return size === 0;
-		},
+    isEmpty: function () {
+      return size === 0;
+    },
 
-		add: function (value) {
-			if (this.isEmpty()) {
-				head = newNode(value);
-			} else {
-				let current = head;
-				while (current.next !== null) {
-					current = current.next;
-				}
+    add: function (value) {
+      if (this.isEmpty()) {
+        head = newNode(value);
+      } else {
+        let current = head;
+        while (current.next !== null) {
+          current = current.next;
+        }
 
-				current.next = newNode(value);
-			}
-			size++;
-		},
+        current.next = newNode(value);
+      }
+      size++;
+    },
 
-		addAt: function (value, index) {
-			if (isOutOfBounds(index, size))
-				throw new Error('Index out of bounds');
+    addAt: function (value, index) {
+      if (isOutOfBounds(index, size)) throw new Error('Index out of bounds');
 
-			if (index === 0) {
-				let oldHead = head;
-				head = newNode(value, oldHead);
-				size++;
-				return;
-			}
+      if (index === 0) {
+        let oldHead = head;
+        head = newNode(value, oldHead);
+        size++;
+        return;
+      }
 
-			let current = head;
-			for (let i = 0; i < index - 1; i++) current = current.next;
+      let current = head;
+      for (let i = 0; i < index - 1; i++) current = current.next;
 
-			const node = newNode(value, current.next);
-			current.next = node;
-			size++;
-		},
+      const node = newNode(value, current.next);
+      current.next = node;
+      size++;
+    },
 
-		remove: function (value) {
-			if (this.isEmpty()) return;
-			if (head.value === value) {
-				head = head.next;
-				size--;
-				return;
-			}
+    remove: function (value) {
+      if (this.isEmpty()) return;
+      if (head.value === value) {
+        head = head.next;
+        size--;
+        return;
+      }
 
-			let current = head;
+      let current = head;
 
-			while (current.next.value !== value) {
-				current = current.next;
-				if (current.next === null) return;
-			}
+      while (current.next.value !== value) {
+        current = current.next;
+        if (current.next === null) return;
+      }
 
-			current.next = current.next.next;
-			size--;
+      current.next = current.next.next;
+      size--;
 
-			return;
-		},
+      return;
+    },
 
-		toString: function () {
-			let current = head;
-			let str = '';
+    toString: function () {
+      let current = head;
+      let str = '';
 
-			while (current !== null) {
-				str += current.value + ' -> ';
+      while (current !== null) {
+        str += current.value + ' -> ';
 
-				current = current.next;
-			}
-			str += 'null';
+        current = current.next;
+      }
+      str += 'null';
 
-			return str;
-		},
-	};
+      return str;
+    },
+  };
 
-	function newNode(value, next = null) {
-		return {
-			value,
-			next,
-		};
-	}
+  function newNode(value, next = null) {
+    return {
+      value,
+      next,
+    };
+  }
 
-	function isOutOfBounds(index, limit) {
-		return index < 0 || index > limit;
-	}
+  function isOutOfBounds(index, limit) {
+    return index < 0 || index > limit;
+  }
 };
 
 const linkedList = createLinkedList();
