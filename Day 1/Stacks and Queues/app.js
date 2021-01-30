@@ -26,6 +26,27 @@ const createStack = () => {
     toString: function () {
       return elements.toString();
     },
+
+    [Symbol.iterator]: function () {
+      let index = 0;
+
+      return {
+        next: function () {
+          if (index >= elements.length)
+            return {
+              value: undefined,
+              done: true,
+            };
+
+          let item = elements[index];
+
+          return {
+            value: elements[index++],
+            done: false,
+          };
+        },
+      };
+    },
   };
 };
 
@@ -36,10 +57,10 @@ stack1.push(3);
 stack1.push(6);
 stack1.push(5);
 
-console.log(String(stack1));
-console.log(stack1.getSize());
-stack1.pop();
-console.log(String(stack1));
+// console.log(String(stack1));
+// console.log(stack1.getSize());
+// stack1.pop();
+// console.log(String(stack1));
 
 const createQueue = () => {
   const enqueueStack = createStack();
@@ -103,3 +124,5 @@ console.log(String(queue1));
 queue1.enqueue(8);
 queue1.enqueue(10);
 console.log(String(queue1));
+
+for (const value of stack1) console.log(value);

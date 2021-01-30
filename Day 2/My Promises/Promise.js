@@ -1,8 +1,8 @@
 const myPromise = executor => {
   const states = {
-    pending: 0,
-    fulfilled: 1,
-    rejected: 2,
+    pending: Symbol('pending'),
+    fulfilled: Symbol('fulfilled'),
+    rejected: Symbol('rejected'),
   };
 
   let state = states.pending;
@@ -111,5 +111,3 @@ promise1
   .then(upperRes => console.log(upperRes))
   .catch(rej => console.log(rej))
   .finally(() => console.log('finally'));
-
-console.log(myPromise.createResolve());
