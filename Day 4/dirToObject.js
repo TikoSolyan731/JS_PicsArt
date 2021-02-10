@@ -2,6 +2,7 @@ const fs = require('fs').promises;
 
 const dirToObject = dir => {
   let obj = {};
+  let folders = [];
 
   return _dirToObj(dir, obj);
 
@@ -15,12 +16,12 @@ const dirToObject = dir => {
           if (isTxtFile(item)) {
             obj[item] = true;
           } else {
-            obj[item] = {};
-
-            _dirToObj(dir + `/${item}`, obj[item]).then(res => {
-              obj[item] = res;
-            });
+            folders.push(obj[item]);
           }
+        }
+
+        for (const folder of folders) {
+          _dirToObj(dir + `/${folder}`, folder)
         }
       })
       .then(() => obj);
