@@ -1,6 +1,6 @@
-const Cruiser = require('./Cruiser');
+const CruiseShip = require('./CruiseShip');
 
-class PrivateCruiser extends Cruiser {
+class PrivateCruiseShip extends CruiseShip {
   constructor(nickname, speed, isIntercontinental, peopleCapacity, owner) {
     super(nickname, speed, isIntercontinental, peopleCapacity);
     this.owner = owner;
@@ -13,4 +13,4 @@ class PrivateCruiser extends Cruiser {
   }
 }
 
-module.exports = PrivateCruiser;
+module.exports = PrivateCruiseShip;
