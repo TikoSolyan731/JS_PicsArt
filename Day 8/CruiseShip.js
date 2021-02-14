@@ -1,6 +1,6 @@
 const Ship = require('./Ship');
 
-class Cruiser extends Ship {
+class CruiseShip extends Ship {
   constructor(nickname, speed, isIntercontinental, peopleCapacity) {
     super(nickname, speed, isIntercontinental);
     this.peopleCapacity = peopleCapacity;
@@ -18,4 +18,4 @@ class Cruiser extends Ship {
   }
 }
 
-module.exports = Cruiser;
+module.exports = CruiseShip;
