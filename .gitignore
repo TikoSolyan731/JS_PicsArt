@@ -5,3 +5,5 @@ Promises/
 /index.js
 /text.txt
 .prettierrc
+node_modules
+.env
