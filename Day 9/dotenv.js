@@ -8,7 +8,10 @@ module.exports = {
         const lines = content.split('\n');
 
         for (const line of lines) {
-            const [key, value] = this.parse(line);
+            let key, value;
+            
+            if (line.length !== 0 && !line.startsWith('#'))
+                [key, value] = this.parse(line);
 
             process.env[key] = value;
         }
