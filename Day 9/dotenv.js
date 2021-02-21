@@ -10,7 +10,7 @@ module.exports = {
         for (const line of lines) {
             let key, value;
             
-            if (line.length !== 0 && !line.startsWith('#'))
+            if (line.includes('=') && line.length !== 0 && !line.startsWith('#'))
                 [key, value] = this.parse(line);
 
             process.env[key] = value;
