@@ -19,7 +19,15 @@ class UsersController {
     }
 
     getAll = async (req, res) => {
-        const response = await this.userService.getAllUsers();
+        const username = req.query.username;
+        const limit = +req.query.limit || 5;
+        const offset = +req.query.offset || 1;
+
+        const response = await this.userService.getAllUsers({
+            username,
+            limit,
+            offset
+        });
         if (response.message === 'Internal Error')
             return res.status(500).json(response);
 

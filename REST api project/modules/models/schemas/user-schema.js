@@ -19,4 +19,6 @@ const userSchema = new Schema({
     }
 })
 
+userSchema.index({ createdAt: 1 });
+
 module.exports = userSchema

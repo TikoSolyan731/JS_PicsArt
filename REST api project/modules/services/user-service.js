@@ -28,9 +28,18 @@ class UserService {
         }
     }
 
-    async getAllUsers() {
+    async getAllUsers(filters) {
+        const limit = filters.limit;
+        const skip = limit * (filters.offset - 1);
+
         try {
-            const users = await UserModel.find();
+            let users = await UserModel.find()
+                .sort({createdAt: 1})
+                .limit(limit)
+                .skip(skip);
+
+            if (filters.username && filters.username.length)
+                users = users.filter(u => u.username.includes(filters.username));
 
             return {
                 message: 'Success',
