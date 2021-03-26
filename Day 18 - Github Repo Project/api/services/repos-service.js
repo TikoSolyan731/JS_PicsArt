@@ -9,7 +9,16 @@ class ReposService {
         if (!cachedRepos) {
             const repos = await this.getReposFromDB();
 
-            await this.reposRedis.setAsync('repos', JSON.stringify(repos));
+            let count = 0;
+            for (const repo of repos) {
+                await this.reposRedis.hmsetAsync(`repos:${count}`, 'id', repo.id, 'full_name', repo.full_name, 'private', repo.private,
+                    'description', repo.description, 'html_url', repo.html_url, 'forks', repo.forks, 'language', repo.language, 'created_at', repo.created_at);
+
+                await this.reposRedis.hmsetAsync(`repos:${count}:owner`, 'id', repo.owner.id, 'html_url', repo.owner.html_url);
+
+                await this.reposRedis.saddAsync('repos', `repos:${count}`);
+                count++;
+            }
 
             return repos;
         } else {
