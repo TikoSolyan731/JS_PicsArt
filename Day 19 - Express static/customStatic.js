@@ -1,15 +1,15 @@
 const path = require('path');
-const Promise = require('bluebird');
-const glob = Promise.promisify(require('glob'));
+const {existsSync} = require('fs');
 
 module.exports = (root) => {
     return async (req, res, next) => {
-        const files = await glob(`${root}/**/*`);
+        const p = path.resolve(`${root}${req.path}`);
+        const exists = await existsSync(p);
 
-        if (!files.includes(`${root}${req.path}`)) {
+        if (exists) {
+            res.sendFile(p);
+        } else {
             return next();
         }
-
-        res.sendFile(path.resolve(`${root}${req.path}`));
     }
 }
